@@ -1,10 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model ChangeLog {
+  id        Int      @id @default(autoincrement())
+  timestamp DateTime @default(now())
+  user      String?
+  action    String
+  details   Json
 }
 
 model Reading {
@@ -12,4 +20,31 @@ model Reading {
   temperature Float
   pressure    Float
   timestamp   DateTime @default(now())
+}
+
+model Recipe {
+  id                Int       @id @default(autoincrement())
+  name              String
+  curingTemp        Float
+  tempBandPlus      Float
+  tempBandMinus     Float
+  pressure          Float
+  pressureBandPlus  Float
+  pressureBandMinus Float
+  curingTime        Int
+  exhaustDelay      Int
+  purgingCycles     Int
+  high1             Float
+  low1              Float
+  high2             Float
+  low2              Float
+  high3             Float
+  low3              Float
+  high4             Float
+  low4              Float
+  high5             Float
+  low5              Float
+  scheduledAt       DateTime?
+  status            String    @default("pending")
+  createdAt         DateTime  @default(now())
 }
